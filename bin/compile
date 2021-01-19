@@ -684,6 +684,7 @@ if cat "$COMPOSER" | python -c 'import sys,json; sys.exit("compile" not in json.
 	status "Running 'composer compile'..."
 	composer run-script -v ${HEROKU_PHP_INSTALL_DEV-"--no-dev"} --no-interaction compile 
 fi
+vendor/bin/drush -y en thunder_demo
 
 status "Preparing runtime environment..."
 
