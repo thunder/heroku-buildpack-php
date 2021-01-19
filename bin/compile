@@ -682,23 +682,7 @@ mmeasure "dependencies.count" $(composer show --installed 2> /dev/null | wc -l)
 
 if cat "$COMPOSER" | python -c 'import sys,json; sys.exit("compile" not in json.load(sys.stdin).get("scripts", {}));'; then
 	status "Running 'composer compile'..."
-	composer run-script ${HEROKU_PHP_INSTALL_DEV-"--no-dev"} --no-interaction compile 2>&1 | indent || {
-		mcount "failures.compile_step"
-		error <<-EOF
-			Compile step failed!
-			
-			Installation of dependencies was successful, but the custom
-			script you're using to perform actions after 'composer install'
-			failed with the error above.
-			
-			Check that the 'compile' command(s) in the 'scripts' section of
-			your '$COMPOSER' are working properly and not running into
-			timeouts or memory limits.
-			
-			For more information on the 'composer compile' step, refer to
-			https://devcenter.heroku.com/articles/php-support
-		EOF
-	}
+	composer run-script -v ${HEROKU_PHP_INSTALL_DEV-"--no-dev"} --no-interaction compile 
 fi
 
 status "Preparing runtime environment..."
