@@ -687,6 +687,7 @@ fi
 
 trap - ERR
 ls
+php -i
 vendor/bin/drush -vvv -y en thunder_demo
 
 status "Preparing runtime environment..."
